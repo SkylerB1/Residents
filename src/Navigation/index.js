@@ -14,10 +14,10 @@ import Loader from '../components/Loader/Loader';
 const Stack = createNativeStackNavigator();
 
 const index = () => {
-  const { token, loading } = useContext(AuthContext);
-  
+  const {token, loading} = useContext(AuthContext);
+
   if (loading) {
-    return <Loader />
+    return <Loader />;
   }
   return (
     <NavigationContainer>
