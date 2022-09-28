@@ -7,10 +7,9 @@ import {
   View,
   TouchableOpacity,
   ImageBackground,
-  Image,
   Alert,
 } from 'react-native';
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react';
 import Header from '../Header/header';
 import CustomButton from '../CustomButton/CustomButton';
 import {heightToDp, widthToDp} from '../Responsive';
@@ -27,8 +26,8 @@ import {API_URL} from '@env';
 import {postFile, postRequest,getRequest} from '../API_Requests/Api_Request';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {ScrollView as GestureHandlerScrollView} from 'react-native-gesture-handler';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Dropdown from '../Dropdown/Dropdown';
+import { AuthContext } from '../AuthContext/AuthProvider';
 
 const MaintenanceForm = ({route, navigation}) => {
   const {type, id} = route.params;
@@ -39,7 +38,6 @@ const MaintenanceForm = ({route, navigation}) => {
   const {control, handleSubmit} = useForm();
   const date = new Date();
   const [open, setOpen] = useState(false);
-  const [userData, setUserData] = useState({});
   const [attachements, setAttachments] = useState([]);
   const photoUrl = useMemo(() => API_URL + 'file-upload-for-cases', []);
   const FormUrl = useMemo(() => API_URL + 'create-case', []);
@@ -53,6 +51,8 @@ const MaintenanceForm = ({route, navigation}) => {
   const [categoryOpen, setCategryOpen] = useState(false)
   const [subjectOpen, setSubjectOpen] = useState(false);
   const [priorityOpen, setPriorityOpen] = useState(false);
+
+  const {userData} = useContext(AuthContext)
   const priorities = useMemo(() => {
     return [
       {
@@ -203,18 +203,6 @@ const MaintenanceForm = ({route, navigation}) => {
   };
 
 
-  const getUserData = async () => {
-    let user_data = await AsyncStorage.getItem('user_data');
-
-    if (user_data) {
-      setUserData(JSON.parse(user_data));
-    }
-  };
-
-  useEffect(() => {
-    getUserData();
-  }, []);
-
   const getDropDownData = async () => {
     let categories = await getRequest(CategoryUrl);
     let subject = await getRequest(SubjectUrl);
@@ -271,6 +259,10 @@ const MaintenanceForm = ({route, navigation}) => {
     setPriorityOpen(false);
     setCategryOpen(false);
   };
+
+  // useEffect(() => {
+  //   console.log(userData)
+  // },[userData])
 
 
   return (

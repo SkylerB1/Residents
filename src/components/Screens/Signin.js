@@ -1,46 +1,20 @@
-import {Text, StyleSheet, View, KeyboardAvoidingView, ImageBackground, Alert,Platform} from 'react-native';
+import {Text, StyleSheet, View, KeyboardAvoidingView} from 'react-native';
 import CustomButton from '../CustomButton/CustomButton';
 import CustomInput from '../CustomInput/CustomInput';
 import {  heightToDp, widthToDp } from '../Responsive';
-import { useNavigation } from '@react-navigation/native';
-import { postRequest } from '../API_Requests/Api_Request';
-import {API_URL, Resident_Role} from '@env';
 import {useForm} from 'react-hook-form'
 import { useContext, useEffect, useMemo, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { requestUserPermission } from '../Push_Notifications/PushNotification';
 import { AuthContext } from '../AuthContext/AuthProvider';
 
 const SignIn = () => {
     const { control, handleSubmit } = useForm()
-    // const navigation = useNavigation()
-    const url = useMemo(()=>API_URL+'login',[])
-    const [loading,setLoading] = useState(false)
-    // const [deviceToken,setDeviceToken] = useState(null)
     const {signIn} = useContext(AuthContext);
         
     const onLogin =  async (input) => {
       signIn(input)
       
     }
-  // const getFcmToken = async () => {
-      
-  //   let token = await requestUserPermission()
-  //   if (token) {
-  //     let fcm_token = await AsyncStorage.getItem('fcmToken');
-  //     setDeviceToken(fcm_token)
-  //   }
-    
-      
-  //   };
   
-  // useEffect(() => {
-  //    console.log('Token',deviceToken) 
-  //   },[deviceToken])
-  
-    // useEffect(()=>{
-    //  getFcmToken()
-    // },[])
     return (
       <>
         {/* <ImageBackground style={{aspectRatio:1}} imageStyle={{width:width,height:height}} source={require('../../../assets/images/Building.jpg')}> */}
@@ -85,7 +59,7 @@ const SignIn = () => {
                 secureTextEntry
               />
 
-              <CustomButton loading={loading} onPress={handleSubmit(onLogin)} text="Login" />
+              <CustomButton onPress={handleSubmit(onLogin)} text="Login" />
             </>
           </KeyboardAvoidingView>
         </View>

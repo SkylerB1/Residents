@@ -1,15 +1,17 @@
-import {StyleSheet, Text, View, StatusBar, Image} from 'react-native';
-import React, {useEffect, useMemo, useState} from 'react';
+import {StyleSheet, Text, View, StatusBar, Image, Pressable} from 'react-native';
+import React, { useEffect, useMemo, useState} from 'react';
 import {heightToDp, widthToDp} from '../Responsive';
 import Menu from '../../../assets/images/Menu.svg';
 import Location from '../../../assets/images/Location.svg';
 import Weather from '../../../assets/images/Weather.svg';
 import Request from '../User Request/Request';
+// import { AuthContext } from '../AuthContext/AuthProvider';
 
 const Home = () => {
   const date = useMemo(() => new Date().toDateString().slice(3, 10), []);
   const [temp, setTemp] = useState(0);
-  const [weather,setWeather] = useState('')
+  const [weather, setWeather] = useState('')
+  // const {signOut} = useContext(AuthContext)
 
   const getWeatherInfo = async (cityname) => {
     try {
@@ -95,6 +97,7 @@ const Home = () => {
         />
         <Request text1="Information Board" text2="" route="InformationBoard" icon="Notice" />
         <Request text1="Staff Members" text2="" route="" icon="Staff" />
+        {/* <Pressable onPress={signOut}><Text>LOGOUT</Text></Pressable> */}
         {/* <Request
           text1="Notice Board"
           route=""
