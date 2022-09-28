@@ -41,12 +41,7 @@ const CustomInput = ({
             {!simpleInput && <Image style={styles.icons} source={getIcons()} />}
             {!simpleInput && (
               <View
-                style={{
-                  borderWidth: 0.5,
-                  height: heightToDp(7),
-                  borderColor: '#D3D3D3',
-                  marginHorizontal: widthToDp(3),
-                }}
+                style={styles.lineBreak}
               />
             )}
             <TextInput
@@ -87,6 +82,12 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: 'black',
     flex: 1,
+  },
+  lineBreak:{
+    borderWidth: 0.5,
+    height: heightToDp(7),
+    borderColor: '#D3D3D3',
+    marginHorizontal: widthToDp(3),
   },
   error: {
     // fontFamily:hjhj

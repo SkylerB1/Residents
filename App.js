@@ -1,34 +1,23 @@
+import React, {useEffect} from 'react';
 
-import React, { useEffect } from 'react';
-
-import {
-  Text,
-  SafeAreaView,
-  StatusBar,
-  } from 'react-native';
-import Navigation from './src/Navigation'
-import { notificationListner } from './src/components/Push_Notifications/PushNotification';
+import {StatusBar} from 'react-native';
+import AppNav from './src/Navigation/AppNav';
+import {notificationListner} from './src/components/Push_Notifications/PushNotification';
 import AuthProvider from './src/components/AuthContext/AuthProvider';
 // import { setCustomText } from 'react-native-global-props';
 
 const App = () => {
+
   
   useEffect(() => {
-    notificationListner()
-},[])
+    notificationListner();
+  }, []);
   return (
     <AuthProvider>
-      <StatusBar
-        backgroundColor={'transparent'}
-        barStyle='dark-content'
-      />
-      <Navigation/>
+      <StatusBar backgroundColor={'transparent'} barStyle="dark-content" />
+      <AppNav />
     </AuthProvider>
   );
 };
-
-
-
-
 
 export default App;

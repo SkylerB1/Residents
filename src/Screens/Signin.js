@@ -23,7 +23,7 @@ const SignIn = () => {
           <KeyboardAvoidingView
             behavior="position"
             keyboardVerticalOffset={widthToDp(20)}>
-            <>
+            <View>
               <CustomInput
                 placeholder="Email"
                 control={control}
@@ -76,8 +76,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F9FBFC',
   },
   text: {
-      fontSize: widthToDp(8),
-      fontFamily:'OpenSans',
+    fontSize: widthToDp(8),
+    // fontFamily:'OpenSans',
     fontWeight: '700',
     color: '#3238a8',
     marginLeft: widthToDp(10),
