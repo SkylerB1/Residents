@@ -9,25 +9,25 @@ import {
   ImageBackground,
   Alert,
 } from 'react-native';
-import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react';
-import Header from '../Header/header';
-import CustomButton from '../CustomButton/CustomButton';
-import {heightToDp, widthToDp} from '../Responsive';
-import CustomInput from '../CustomInput/CustomInput';
+import React, {useContext, useEffect, useMemo, useState} from 'react';
+import Header from '../components/Header/header';
+import CustomButton from '../components/CustomButton/CustomButton';
+import {heightToDp, widthToDp} from '../components/Responsive';
+import CustomInput from '../components/CustomInput/CustomInput';
 import {Controller, useForm} from 'react-hook-form';
 import DatePicker from 'react-native-date-picker';
-import Calendar from '../../../assets/images/Calendar.svg';
-import Photo from '../../../assets/images/Photo.svg';
-// import Video from '../../../assets/images/Video.svg';
-import Gallery from '../../../assets/images/Gallery.svg';
+import Calendar from '../../assets/images/Calendar.svg';
+import Photo from '../../assets/images/Photo.svg';
+// import Video from '../../assets/images/Video.svg';
+import Gallery from '../../assets/images/Gallery.svg';
 import ImagePicker from 'react-native-image-crop-picker';
-import Cross from '../../../assets/images/Cross.svg';
+import Cross from '../../assets/images/Cross.svg';
 import {API_URL} from '@env';
-import {postFile, postRequest,getRequest} from '../API_Requests/Api_Request';
+import {postFile, postRequest,getRequest} from '../components/API_Requests/Api_Request';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {ScrollView as GestureHandlerScrollView} from 'react-native-gesture-handler';
-import Dropdown from '../Dropdown/Dropdown';
-import { AuthContext } from '../AuthContext/AuthProvider';
+import Dropdown from '../components/Dropdown/Dropdown';
+import {AuthContext} from '../components/AuthContext/AuthProvider';
 
 const MaintenanceForm = ({route, navigation}) => {
   const {type, id} = route.params;

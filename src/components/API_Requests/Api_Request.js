@@ -9,7 +9,7 @@ const getRequest = async url => {
 };
 
 const postRequest = async (url, data) => {
-  // console.log({data: data});
+  console.log({data: data});
   try {
     const response = await axios.post(url, data);
 

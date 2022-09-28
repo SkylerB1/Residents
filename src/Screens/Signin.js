@@ -1,10 +1,10 @@
 import {Text, StyleSheet, View, KeyboardAvoidingView} from 'react-native';
-import CustomButton from '../CustomButton/CustomButton';
-import CustomInput from '../CustomInput/CustomInput';
-import {  heightToDp, widthToDp } from '../Responsive';
+import CustomButton from '../components/CustomButton/CustomButton';
+import CustomInput from '../components/CustomInput/CustomInput';
+import {heightToDp, widthToDp} from '../components/Responsive';
 import {useForm} from 'react-hook-form'
 import { useContext, useEffect, useMemo, useState } from 'react';
-import { AuthContext } from '../AuthContext/AuthProvider';
+import { AuthContext } from '../components/AuthContext/AuthProvider';
 
 const SignIn = () => {
     const { control, handleSubmit } = useForm()

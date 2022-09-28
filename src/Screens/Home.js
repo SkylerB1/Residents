@@ -1,17 +1,17 @@
-import {StyleSheet, Text, View, StatusBar, Image, Pressable} from 'react-native';
-import React, { useEffect, useMemo, useState} from 'react';
-import {heightToDp, widthToDp} from '../Responsive';
-import Menu from '../../../assets/images/Menu.svg';
-import Location from '../../../assets/images/Location.svg';
-import Weather from '../../../assets/images/Weather.svg';
-import Request from '../User Request/Request';
-// import { AuthContext } from '../AuthContext/AuthProvider';
+import {StyleSheet, Text, View, StatusBar, Image,Pressable} from 'react-native';
+import React, {useContext, useEffect, useMemo, useState} from 'react';
+import {heightToDp, widthToDp} from '../components/Responsive';
+import Menu from '../../assets/images/Menu.svg';
+import Location from '../../assets/images/Location.svg';
+import Weather from '../../assets/images/Weather.svg';
+import Request from '../components/User Request/Request';
+import { AuthContext } from '../components/AuthContext/AuthProvider';
 
 const Home = () => {
   const date = useMemo(() => new Date().toDateString().slice(3, 10), []);
   const [temp, setTemp] = useState(0);
   const [weather, setWeather] = useState('')
-  // const {signOut} = useContext(AuthContext)
+  const {signOut} = useContext(AuthContext)
 
   const getWeatherInfo = async (cityname) => {
     try {
@@ -44,7 +44,7 @@ const Home = () => {
           <View style={styles.imgBorder}>
             <Image
               style={{width: widthToDp(8), height: heightToDp(8)}}
-              source={require('../../../assets/images/chatprofile.png')}
+              source={require('../../assets/images/chatprofile.png')}
             />
           </View>
         </View>
@@ -97,7 +97,7 @@ const Home = () => {
         />
         <Request text1="Information Board" text2="" route="InformationBoard" icon="Notice" />
         <Request text1="Staff Members" text2="" route="" icon="Staff" />
-        {/* <Pressable onPress={signOut}><Text>LOGOUT</Text></Pressable> */}
+        <Pressable onPress={signOut}><Text>LOGOUT</Text></Pressable>
         {/* <Request
           text1="Notice Board"
           route=""

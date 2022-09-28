@@ -1,39 +1,37 @@
 import {
   Alert,
-  Pressable,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
-  View,
-  Image
+  View
 } from 'react-native';
-import React, {useState} from 'react';
-import Header from '../Header/header';
-import { widthToDp, heightToDp } from '../Responsive';
-import DetailView from '../DetailView/DetailView';
+import React, {useEffect, useState} from 'react';
+import Header from '../components/Header/header';
+import {widthToDp, heightToDp} from '../components/Responsive';
+import DetailView from '../components/DetailView/DetailView';
 import { useNavigation } from '@react-navigation/native';
 import ImageModal from 'react-native-image-modal';
-import Maintenance from '../../../assets/images/Maintenance.svg'
+import Maintenance from '../../assets/images/Maintenance.svg'
 
 
 const defectedImages = [
-  {url: require('../../../assets/images/defect1.jpg')},
+  {url: require('../../assets/images/defect1.jpg')},
   {
-    url: require('../../../assets/images/defect2.jpeg'),
+    url: require('../../assets/images/defect2.jpeg'),
   },
   {
-    url: require('../../../assets/images/defect1.jpg'),
+    url: require('../../assets/images/defect1.jpg'),
   },
   {
-    url: require('../../../assets/images/defect2.jpeg'),
+    url: require('../../assets/images/defect2.jpeg'),
   },
 ];
 
 const AmenityBookingDetail = ({ route }) => {
     
     const { data } = route.params
-    // console.log('ROUTE',data)
+    const defected_images = JSON.parse(data.defected_images);
 
     const navigation = useNavigation()
 
@@ -54,6 +52,10 @@ const AmenityBookingDetail = ({ route }) => {
       ],
     );
   };
+  // useEffect(() => {
+  //   console.log(defected_images[0].name)
+  // },[])
+
   return (
     <SafeAreaView style={styles.root}>
       <Header text="Booking Details" />
@@ -87,7 +89,7 @@ const AmenityBookingDetail = ({ route }) => {
         />
         <DetailView heading="Status" details={data.case_status} />
         <View style={styles.defectedImageView}>
-          <View style={{flex: 1}}>
+          {defected_images.length > 0 && <View style={{ flex: 1 }}>
             <View style={styles.defectedImageTextView}>
               <Maintenance
                 width={widthToDp(4.5)}
@@ -98,32 +100,33 @@ const AmenityBookingDetail = ({ route }) => {
             </View>
             <View style={styles.imagesView}>
               <ImageModal
-                resizeMode="cover"
+                resizeMode="contain"
                 imageBackgroundColor="black"
-                style={{width: widthToDp(78.5), height: heightToDp(40)}}
+                style={{ width: widthToDp(78.5), height: heightToDp(40) }}
                 isTranslucent={true}
-                source={defectedImages[0].url}
+                source={{ uri: 'http://54.79.105.63/xpert-fms/public/cases/' + defected_images[0].name }}
               />
               <View style={styles.imageView}>
-                {defectedImages.length > 0 &&
-                  defectedImages.map((item, index) => {
+                {defected_images.length > 0 &&
+                  defected_images.map((item, index) => {
                     if (index > 0) {
                       return (
                         <ImageModal
+                          resizeMode='contain'
                           key={index}
                           imageBackgroundColor="black"
                           style={{
                             width: widthToDp(20),
                             height: heightToDp(20),
                           }}
-                          source={item.url}
+                          source={{ uri: 'http://54.79.105.63/xpert-fms/public/cases/' + defected_images[index].name }}
                         />
                       );
                     }
                   })}
               </View>
             </View>
-          </View>
+          </View>}
         </View>
       </ScrollView>
       {/* {data.case_status === 'Completed' ? null :
@@ -192,7 +195,7 @@ const styles = StyleSheet.create({
     marginTop: '4%',
     flexWrap: 'wrap',
     // borderWidth: 1,
-    justifyContent: 'space-between',
+    justifyContent: 'center',
   },
 });
 

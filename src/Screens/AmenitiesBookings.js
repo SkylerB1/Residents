@@ -1,13 +1,12 @@
-import { ActivityIndicator, FlatList, SafeAreaView, StyleSheet, View,Text } from 'react-native'
+import {  FlatList, SafeAreaView, StyleSheet, View,Text } from 'react-native'
 import React, { useEffect, useState,useMemo, useContext } from 'react'
-import Header from '../Header/header'
-import { widthToDp } from '../Responsive';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import Header from '../components/Header/header';
+import {widthToDp} from '../components/Responsive';
 import {API_URL} from '@env';
-import { postRequest } from '../API_Requests/Api_Request';
-import Tile from '../Tile/Tile';
-import Loader from '../Loader/Loader';
-import { AuthContext } from '../AuthContext/AuthProvider';
+import {postRequest} from '../components/API_Requests/Api_Request';
+import Tile from '../components/Tile/Tile';
+import Loader from '../components/Loader/Loader';
+import {AuthContext} from '../components/AuthContext/AuthProvider';
 
 const AmenitiesBookings = () => {
   const [data, setData] = useState([])
@@ -22,7 +21,7 @@ const AmenitiesBookings = () => {
       userId:userData.id
     }
 
-    console.log({userId:userId})
+    // console.log({userId:userId})
 
     const response = await postRequest(url, userId)
 
