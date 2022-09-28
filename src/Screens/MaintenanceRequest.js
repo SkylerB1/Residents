@@ -8,14 +8,14 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useMemo, useState} from 'react';
-import Header from '../Header/header';
-import CustomButton from '../CustomButton/CustomButton';
-import {widthToDp} from '../Responsive';
-import List from '../List/List';
+import Header from '../components/Header/header';
+import CustomButton from '../components/CustomButton/CustomButton';
+import {widthToDp} from '../components/Responsive';
+import List from '../components/List/List';
 import {useNavigation} from '@react-navigation/native';
 import {API_URL} from '@env';
-import {getRequest} from '../API_Requests/Api_Request';
-import Loader from '../Loader/Loader';
+import {getRequest} from '../components/API_Requests/Api_Request';
+import Loader from '../components/Loader/Loader';
 
 const MaintenanceRequest = () => {
   const [selectedItem, setItem] = useState(null);
