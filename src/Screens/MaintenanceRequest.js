@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: widthToDp(3),
     borderRadius: 8,
-    marginVertical: widthToDp(5),
+    marginVertical: '7%',
   },
   typeText: {
     // fontFamily: 'OpenSans',

@@ -57,7 +57,7 @@ const AmenityBookingDetail = ({ route }) => {
   // },[])
 
   return (
-    <SafeAreaView style={styles.root}>
+    <View style={styles.root}>
       <Header text="Booking Details" />
       <View
         style={{
@@ -136,7 +136,7 @@ const AmenityBookingDetail = ({ route }) => {
         style={styles.btn}
         icon="Reminder"
       />} */}
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -185,7 +185,6 @@ const styles = StyleSheet.create({
     color: '#3238a8',
     fontWeight: 'bold',
     letterSpacing: 0.5,
-    fontFamily: 'OpenSans',
     marginLeft: '1%',
     // textAlign: 'center',
   },

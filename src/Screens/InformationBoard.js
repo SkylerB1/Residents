@@ -1,4 +1,4 @@
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import React from 'react';
 import Header from '../components/Header/header';
 import Notice from '../components/Notice/Notice';
@@ -56,5 +56,3 @@ const InformationBoard = () => {
 };
 
 export default InformationBoard;
-
-const styles = StyleSheet.create({});

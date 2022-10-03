@@ -1,4 +1,4 @@
-import {StyleSheet, TextInput, View, Text, Image} from 'react-native';
+import {StyleSheet, TextInput, View, Text, Image, Platform} from 'react-native';
 import React from 'react';
 import {heightToDp, widthToDp} from '../Responsive';
 import {Controller} from 'react-hook-form';
@@ -49,7 +49,6 @@ const CustomInput = ({
               onChangeText={onChange}
               onBlur={onBlur}
               placeholder={placeholder}
-              placeholderTextColor="#D3D3D3"
               style={textInputStyle ? textInputStyle : styles.input}
               secureTextEntry={secureTextEntry}
               keyboardType={keyboardType ? keyboardType : 'default'}
@@ -70,7 +69,8 @@ const styles = StyleSheet.create({
     borderColor: '#e8e8e8',
     borderWidth: 1,
     borderRadius: 5,
-    padding: '2%',
+    height: Platform.OS==='android'?0: '20%',
+    paddingHorizontal: '2%',
     marginVertical: heightToDp(4),
     marginHorizontal: widthToDp(10),
     flexDirection: 'row',

@@ -97,7 +97,7 @@ const Home = () => {
         />
         <Request text1="Information Board" text2="" route="InformationBoard" icon="Notice" />
         <Request text1="Staff Members" text2="" route="" icon="Staff" />
-        <Pressable onPress={signOut}><Text>LOGOUT</Text></Pressable>
+        
         {/* <Request
           text1="Notice Board"
           route=""
@@ -139,14 +139,13 @@ const styles = StyleSheet.create({
   welcomeText: {
     color: 'white',
     fontSize: widthToDp(3.5),
-    fontFamily: 'OpenSans',
     opacity: 0.5,
     letterSpacing: 1,
   },
   buildingNameText: {
     color: 'white',
     fontSize: widthToDp(7),
-    fontFamily: 'OpenSans',
+    //fontFamily: 'OpenSans',
     letterSpacing: 1,
     marginTop: widthToDp(2),
   },
@@ -170,7 +169,7 @@ const styles = StyleSheet.create({
   tempText: {
     fontSize: widthToDp(5.5),
     color: 'white',
-    fontFamily: 'OpenSans',
+    //fontFamily: 'OpenSans',
   },
   locationView: {flexDirection: 'row', alignItems: 'center'},
   requestText: {
@@ -180,7 +179,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     opacity: 0.7,
     letterSpacing: -0.5,
-    fontFamily: 'OpenSans',
+    //fontFamily: 'OpenSans',
   },
   locationText: {
     marginLeft: widthToDp(1.5),
@@ -188,20 +187,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     letterSpacing: 2.5,
-    fontFamily: 'OpenSans',
+    //fontFamily: 'OpenSans',
   },
   weatherText: {
     fontSize: widthToDp(3.2),
     fontWeight: 'bold',
     color: 'white',
     opacity: 0.5,
-    fontFamily: 'OpenSans',
+    //fontFamily: 'OpenSans',
   },
   date: {
     fontSize: widthToDp(3.2),
     fontWeight: 'bold',
     color: 'white',
-    fontFamily: 'OpenSans',
     opacity: 0.5,
   },
   card: {
