@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   Alert,
+  Platform,
 } from 'react-native';
 import React, {useContext, useEffect, useMemo, useState} from 'react';
 import Header from '../components/Header/header';
@@ -23,6 +24,11 @@ import Gallery from '../../assets/images/Gallery.svg';
 import ImagePicker from 'react-native-image-crop-picker';
 import Cross from '../../assets/images/Cross.svg';
 import {API_URL} from '@env';
+import {
+  postFile,
+  postRequest,
+  getRequest,
+} from '../components/API_Requests/Api_Request';
 import {
   postFile,
   postRequest,
@@ -290,7 +296,7 @@ const MaintenanceForm = ({route, navigation}) => {
 
   return (
     <GestureHandlerRootView style={{flex: 1}}>
-      <SafeAreaView style={styles.root}>
+      <View style={styles.root}>
         <Header text="Maintenance Request" />
         <View style={{marginTop: heightToDp(3)}}>
           <Text style={styles.stepText}>Step 2</Text>
@@ -324,7 +330,7 @@ const MaintenanceForm = ({route, navigation}) => {
                     <Pressable
                       onPress={() => setOpen(true)}
                       style={[
-                        styles.input,
+                        styles.inputDate,
                         {
                           marginLeft: widthToDp(30),
                           borderColor: error ? 'red' : '#e8e8e8',
@@ -335,8 +341,7 @@ const MaintenanceForm = ({route, navigation}) => {
                       </Text>
                       <View
                         style={{
-                          marginRight: widthToDp(2),
-                          paddingVertical: heightToDp(3.5),
+                          marginHorizontal: '5%',
                         }}>
                         <Calendar
                           width={widthToDp(5.5)}
@@ -359,7 +364,7 @@ const MaintenanceForm = ({route, navigation}) => {
                 )}
               />
             </View>
-            <View style={styles.inputView}>
+            <View style={[styles.inputView, {zIndex: 3}]}>
               <Text style={[styles.txt, {flex: 0}]}>Priority</Text>
               <Dropdown
                 name="Priority"
@@ -434,7 +439,7 @@ const MaintenanceForm = ({route, navigation}) => {
                 zIndexInverse={2000}
               />
             </View>
-            <View style={styles.inputView}>
+            <View style={[styles.inputView, {zIndex: 1}]}>
               <Text style={styles.txt}>Subject</Text>
               <Dropdown
                 name="Subject"
@@ -567,7 +572,7 @@ const MaintenanceForm = ({route, navigation}) => {
           text="Submit"
           style={styles.btn}
         />
-      </SafeAreaView>
+      </View>
     </GestureHandlerRootView>
   );
 };
@@ -601,7 +606,6 @@ const styles = StyleSheet.create({
     fontSize: widthToDp(5.5),
     fontWeight: '700',
     marginLeft: widthToDp(3),
-    fontFamily: 'OpenSans',
   },
   heading: {
     color: '#3238a8',
@@ -637,13 +641,25 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
+    height: undefined,
+    aspectRatio: 5,
     backgroundColor: 'white',
     borderColor: '#e8e8e8',
     borderRadius: 5,
     flexDirection: 'row',
+    paddingHorizontal:'3%',
     // marginLeft: widthToDp(10),
     flex: 2,
     alignItems: 'center',
+  },
+  inputDate:{
+    borderWidth:1,
+    flexDirection:'row',
+    flex:2,
+    alignItems:'center',
+    paddingVertical:'2%',
+    borderRadius:8
+
   },
   textInputStyle: {
     fontSize: widthToDp(4.5),

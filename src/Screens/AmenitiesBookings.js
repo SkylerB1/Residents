@@ -52,7 +52,7 @@ const AmenitiesBookings = () => {
   // },[userData])
   
   return (
-    <SafeAreaView style={styles.root}>
+    <View style={styles.root}>
       <Header text="Amenity Bookings" />
       <View style={styles.listView}>
         {loading ? <Loader /> :
@@ -65,7 +65,7 @@ const AmenitiesBookings = () => {
           />
         }
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 

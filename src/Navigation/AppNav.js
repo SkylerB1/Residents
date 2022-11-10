@@ -1,4 +1,5 @@
-import React, {useContext} from 'react';
+import * as React from 'react';
+import {useContext} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SignIn from '../Screens/Signin';
@@ -14,11 +15,11 @@ import StaffMembers from '../Screens/StaffMembers';
 
 const Stack = createNativeStackNavigator();
 
-const index = () => {
-  const { token, loading } = useContext(AuthContext);
-  
+const AppNav = () => {
+  const {token, loading} = useContext(AuthContext);
+
   if (loading) {
-    return <Loader />
+    return <Loader />;
   }
   return (
     <NavigationContainer>
@@ -56,4 +57,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default AppNav;

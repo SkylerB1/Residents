@@ -1,4 +1,4 @@
-import {Text, StyleSheet, View, KeyboardAvoidingView} from 'react-native';
+import {Text, StyleSheet, View, KeyboardAvoidingView, Platform} from 'react-native';
 import CustomButton from '../components/CustomButton/CustomButton';
 import CustomInput from '../components/CustomInput/CustomInput';
 import {heightToDp, widthToDp} from '../components/Responsive';
@@ -21,9 +21,9 @@ const SignIn = () => {
         <View style={styles.root}>
           <Text style={styles.text}>Resident's Login</Text>
           <KeyboardAvoidingView
-            behavior="position"
+            behavior={Platform.OS ==='android' ? "position" : ''}
             keyboardVerticalOffset={widthToDp(20)}>
-            <>
+            <View>
               <CustomInput
                 placeholder="Email"
                 control={control}
@@ -60,7 +60,7 @@ const SignIn = () => {
               />
 
               <CustomButton onPress={handleSubmit(onLogin)} text="Login" />
-            </>
+            </View>
           </KeyboardAvoidingView>
         </View>
 
@@ -76,8 +76,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F9FBFC',
   },
   text: {
-      fontSize: widthToDp(8),
-      fontFamily:'OpenSans',
+    fontSize: widthToDp(8),
+    // fontFamily:'OpenSans',
     fontWeight: '700',
     color: '#3238a8',
     marginLeft: widthToDp(10),
@@ -86,3 +86,5 @@ const styles = StyleSheet.create({
 });
 
 export default SignIn;
+
+
