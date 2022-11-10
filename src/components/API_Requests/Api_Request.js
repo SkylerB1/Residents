@@ -20,7 +20,7 @@ const postRequest = async (url, data) => {
 };
 
 const postFile = async (url, data) => {
-  // console.log({ data: data, url: url });
+  console.log({ data: data});
   try {
     const response = await fetch(url, {
       method: 'POST',

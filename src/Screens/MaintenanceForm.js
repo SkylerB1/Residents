@@ -23,7 +23,11 @@ import Gallery from '../../assets/images/Gallery.svg';
 import ImagePicker from 'react-native-image-crop-picker';
 import Cross from '../../assets/images/Cross.svg';
 import {API_URL} from '@env';
-import {postFile, postRequest,getRequest} from '../components/API_Requests/Api_Request';
+import {
+  postFile,
+  postRequest,
+  getRequest,
+} from '../components/API_Requests/Api_Request';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {ScrollView as GestureHandlerScrollView} from 'react-native-gesture-handler';
 import Dropdown from '../components/Dropdown/Dropdown';
@@ -31,6 +35,8 @@ import {AuthContext} from '../components/AuthContext/AuthProvider';
 
 const MaintenanceForm = ({route, navigation}) => {
   const {type, id} = route.params;
+
+  //  console.log(type,id)
 
   // const type = 'test'
   // const id = 1
@@ -44,15 +50,15 @@ const MaintenanceForm = ({route, navigation}) => {
   const SubjectUrl = useMemo(() => API_URL + 'get-subjects', []);
   const CategoryUrl = useMemo(() => API_URL + 'get-categories', []);
   const [loading, setLoading] = useState(false);
-  const [imageSelected, setImageSelected] = useState(false)
-  // const [defectedImages, setDefectedImages] = useState([])
-  const [subjects, setSubjects] = useState([])
+  const [imageSelected, setImageSelected] = useState(false);
+  const [subjects, setSubjects] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [categoryOpen, setCategryOpen] = useState(false)
+  const [categoryOpen, setCategryOpen] = useState(false);
+  const [jobAreaOpen, setJobAreaOpen] = useState(false);
   const [subjectOpen, setSubjectOpen] = useState(false);
   const [priorityOpen, setPriorityOpen] = useState(false);
 
-  const {userData} = useContext(AuthContext)
+  const {userData} = useContext(AuthContext);
   const priorities = useMemo(() => {
     return [
       {
@@ -70,13 +76,30 @@ const MaintenanceForm = ({route, navigation}) => {
     ];
   }, []);
 
+  const JobAreas = useMemo(() => {
+    return [
+      {
+        label: 'Private Lot',
+        value: 'Private Lot',
+      },
+      {
+        label: 'Common-Asset',
+        value: 'Common-Asset',
+      },
+      {
+        label: 'Common-Non Asset',
+        value: 'Common-Non Asset',
+      },
+    ];
+  }, []);
+
   const onSubmit = async data => {
     setLoading(true);
     if (attachements.length == 0) {
-      setLoading(false)
-      setImageSelected(true)
-
+      setLoading(false);
+      setImageSelected(true);
     } else {
+      setImageSelected(false);
       let formData = new FormData();
 
       attachements.forEach((image, index) => {
@@ -87,11 +110,11 @@ const MaintenanceForm = ({route, navigation}) => {
       const response = await postFile(photoUrl, formData);
 
       if (response.status == 200) {
-
-        // console.log(response.data)
+        // console.log(response.data);
         let formData = {
           userId: userData.id,
           caseTypeId: id,
+          residentInfo: userData.id,
           addedDate: data.date,
           priority: data.Priority,
           jobArea: data.JobArea,
@@ -101,7 +124,7 @@ const MaintenanceForm = ({route, navigation}) => {
           subject: data.Subject,
           category_id: data.Category,
           description: data.Description,
-          notes: data.Notes,
+          notes: null,
           quotes: null,
           eMail: userData.email,
           defectedImages: response.data,
@@ -113,7 +136,7 @@ const MaintenanceForm = ({route, navigation}) => {
           setLoading(false);
           Alert.alert(
             'Success',
-            'Thank You! Your request has been submitted and is being sent to building owner.',
+            'Thank you, Your request has been submitted.',
             [
               {
                 text: 'Ok',
@@ -123,7 +146,7 @@ const MaintenanceForm = ({route, navigation}) => {
           );
         } else {
           setLoading(false);
-          console.log(FormResponse.data)
+          console.log(FormResponse.data);
           Alert.alert(
             'Error',
             'Some Error occured while submitting the form. Please try after some time.',
@@ -147,34 +170,33 @@ const MaintenanceForm = ({route, navigation}) => {
   };
 
   const handleDropDown = () => {
-    setPriorityOpen(false)
-    setSubjectOpen(false)
-    setCategryOpen(false)
+    setPriorityOpen(false);
+    setSubjectOpen(false);
+    setCategryOpen(false);
+    setJobAreaOpen(false)
   };
 
   const openCamera = async () => {
-
     try {
       const image = await ImagePicker.openCamera({
         compressImageQuality: 0.7,
         mediaType: 'photo',
         forceJpg: true,
-      })
+      });
       let imageData = {
         uri: image.path,
         type: image.mime,
-        name: image.path.substring(image.path.lastIndexOf('/') + 1)
+        name: image.path.substring(image.path.lastIndexOf('/') + 1),
       };
       // let defectedImageName = {
       //   name: image.path.substring(image.path.lastIndexOf('/') + 1)
       // };
       setAttachments(prevImage => [...prevImage, imageData]);
+      setImageSelected(false);
       // setDefectedImages(prevImage => [...prevImage,defectedImageName])
-      
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-    
   };
   const openGallery = () => {
     ImagePicker.openPicker({
@@ -188,12 +210,13 @@ const MaintenanceForm = ({route, navigation}) => {
           let imageData = {
             uri: image.path,
             type: image.mime,
-            name:image.path.substring(image.path.lastIndexOf('/')+1)
+            name: image.path.substring(image.path.lastIndexOf('/') + 1),
           };
           // let defectedImageName = {
           //   name: image.path.substring(image.path.lastIndexOf('/') + 1),
           // };
           setAttachments(prevImage => [...prevImage, imageData]);
+          setImageSelected(false)
           // setDefectedImages(prevImage => [...prevImage, defectedImageName]);
         });
       })
@@ -202,23 +225,21 @@ const MaintenanceForm = ({route, navigation}) => {
       });
   };
 
-
   const getDropDownData = async () => {
     let categories = await getRequest(CategoryUrl);
     let subject = await getRequest(SubjectUrl);
-    
+
     if (categories.status == 200) {
-      let item = []
+      let item = [];
       categories.data.forEach(element => {
         item.push({
           label: element.category_title,
           value: element.category_id,
         });
-      })
+      });
       setCategories(item);
     }
     if (subject.status == 200) {
-
       let item = [];
       subject.data.forEach(element => {
         item.push({
@@ -228,8 +249,7 @@ const MaintenanceForm = ({route, navigation}) => {
       });
       setSubjects(item);
     }
-    
-  }
+  };
   useEffect(() => {
     getDropDownData();
   }, []);
@@ -240,30 +260,33 @@ const MaintenanceForm = ({route, navigation}) => {
   //   console.log('Subject',subjects);
   // }, [subjects]);
   const removeImage = key => {
-    const newAttachments = attachements.filter((value, index) => key != index)
+    const newAttachments = attachements.filter((value, index) => key != index);
     // const newDefetedImages =  defectedImages.filter((value, index) => key != index)
-    
-    setAttachments(newAttachments)
+
+    setAttachments(newAttachments);
     // setDefectedImages(newDefetedImages)
   };
 
   const onPriorityOpen = () => {
-    setSubjectOpen(false)
-    setCategryOpen(false)
-  }
+    setSubjectOpen(false);
+    setCategryOpen(false);
+    setJobAreaOpen(false);
+  };
   const onCategoryOpen = () => {
     setSubjectOpen(false);
     setPriorityOpen(false);
-   };
-  const onSubjectOpen = () => {
+    setJobAreaOpen(false);
+  };
+  const onJobAreaOpen = () => {
+    setSubjectOpen(false);
     setPriorityOpen(false);
     setCategryOpen(false);
   };
-
-  // useEffect(() => {
-  //   console.log(userData)
-  // },[userData])
-
+  const onSubjectOpen = () => {
+    setPriorityOpen(false);
+    setCategryOpen(false);
+    setJobAreaOpen(false);
+  };
 
   return (
     <GestureHandlerRootView style={{flex: 1}}>
@@ -370,7 +393,7 @@ const MaintenanceForm = ({route, navigation}) => {
 
             <Text style={styles.heading}>Job Information</Text>
             <View style={styles.line} />
-            <View style={styles.inputView}>
+            {/* <View style={styles.inputView}>
               <Text style={styles.txt}>Job Area</Text>
               <CustomInput
                 name="JobArea"
@@ -379,6 +402,21 @@ const MaintenanceForm = ({route, navigation}) => {
                 rules={{required: true}}
                 simpleInput
                 style={styles.input}
+              />
+            </View> */}
+            <View style={styles.inputView}>
+              <Text style={styles.txt}>Job Area</Text>
+              <Dropdown
+                name="JobArea"
+                control={control}
+                placeholder="Select job area"
+                open={jobAreaOpen}
+                setOpen={setJobAreaOpen}
+                onOpen={onJobAreaOpen}
+                rules={{required: true}}
+                data={JobAreas}
+                zIndex={2000}
+                zIndexInverse={3000}
               />
             </View>
             <View style={styles.inputView}>
@@ -392,7 +430,7 @@ const MaintenanceForm = ({route, navigation}) => {
                 onOpen={onCategoryOpen}
                 rules={{required: true}}
                 data={categories}
-                zIndex={2000}
+                zIndex={3000}
                 zIndexInverse={2000}
               />
             </View>
@@ -407,7 +445,7 @@ const MaintenanceForm = ({route, navigation}) => {
                 onOpen={onSubjectOpen}
                 rules={{required: true}}
                 data={subjects}
-                zIndex={3000}
+                zIndex={4000}
                 zIndexInverse={1000}
               />
             </View>
@@ -424,7 +462,7 @@ const MaintenanceForm = ({route, navigation}) => {
               />
             </View>
             <View style={styles.inputView}>
-              <Text style={styles.txt}>Contact No</Text>
+              <Text style={styles.txt}>Alternate Contact No</Text>
               <CustomInput
                 name="Contact"
                 placeholder=""
@@ -441,7 +479,7 @@ const MaintenanceForm = ({route, navigation}) => {
                 // textInputStyle={styles.textInputStyle}
               />
             </View>
-            <View style={styles.inputView}>
+            {/* <View style={styles.inputView}>
               <Text style={styles.txt}>Notes</Text>
               <CustomInput
                 name="Notes"
@@ -452,13 +490,13 @@ const MaintenanceForm = ({route, navigation}) => {
                 style={styles.input}
                 multiline
               />
-            </View>
+            </View> */}
             <Text style={styles.heading}>Attachments</Text>
             <View style={styles.line} />
             <GestureHandlerScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
-              style={{flex: 1,marginTop:'1.5%'}}
+              style={{flex: 1, marginTop: '1.5%'}}
               contentContainerStyle={{
                 flexGrow: 1,
                 justifyContent: 'center',
@@ -478,7 +516,9 @@ const MaintenanceForm = ({route, navigation}) => {
                         style={styles.img}
                         imageStyle={{borderRadius: 5}}
                         source={{uri: image.uri}}>
-                        <Pressable onPress={() => removeImage(index)} style={styles.deleteImageView}>
+                        <Pressable
+                          onPress={() => removeImage(index)}
+                          style={styles.deleteImageView}>
                           <Cross
                             width={widthToDp(2.5)}
                             height={heightToDp(2.5)}
@@ -486,7 +526,6 @@ const MaintenanceForm = ({route, navigation}) => {
                           />
                         </Pressable>
                       </ImageBackground>
-
                     </View>
                   );
                 })}
@@ -609,7 +648,7 @@ const styles = StyleSheet.create({
   textInputStyle: {
     fontSize: widthToDp(4.5),
     flex: 1,
-    fontWeight: '500',
+    // fontWeight: '500',
     color: 'black',
   },
   dropDown: {

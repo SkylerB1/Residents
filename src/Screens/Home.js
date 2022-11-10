@@ -38,7 +38,7 @@ const Home = () => {
     <View style={styles.root}>
       <StatusBar translucent barStyle={'light-content'} />
       <View style={styles.backgroundView}>
-        <View style={styles.topView}>
+        {/* <View style={styles.topView}>
           <Menu width={widthToDp(6)} height={heightToDp(6)} fill="white" />
 
           <View style={styles.imgBorder}>
@@ -47,7 +47,7 @@ const Home = () => {
               source={require('../../assets/images/chatprofile.png')}
             />
           </View>
-        </View>
+        </View> */}
         <View style={styles.MainTextView}>
           <Text style={styles.welcomeText}>Welcome to</Text>
           <Text style={styles.buildingNameText}>XPERT FMS</Text>
@@ -96,8 +96,8 @@ const Home = () => {
           icon="Booking"
         />
         <Request text1="Information Board" text2="" route="InformationBoard" icon="Notice" />
-        <Request text1="Staff Members" text2="" route="" icon="Staff" />
-        <Pressable onPress={signOut}><Text>LOGOUT</Text></Pressable>
+        <Request text1="Staff Members" text2="" route="StaffMembers" icon="Staff" />
+        {/* <Pressable onPress={signOut}><Text>LOGOUT</Text></Pressable> */}
         {/* <Request
           text1="Notice Board"
           route=""
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  MainTextView: {marginLeft: heightToDp(5), marginTop: widthToDp(5)},
+  MainTextView: {marginLeft: heightToDp(5), marginTop: widthToDp(35)},
   welcomeText: {
     color: 'white',
     fontSize: widthToDp(3.5),

@@ -82,11 +82,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   input: {
-    fontSize: widthToDp(4.5),
+    fontSize: widthToDp(4),
     // fontFamily: 'OpenSans',
-    fontWeight: '500',
+    // fontWeight: '500',
     color: 'black',
     flex: 1,
+    marginLeft:'2.5%'
   },
   error: {
     // fontFamily:hjhj

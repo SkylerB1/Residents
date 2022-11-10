@@ -74,6 +74,5 @@ export default AmenitiesBookings
 const styles = StyleSheet.create({
   root: {flex: 1},
   listView: {flex: 1, padding: widthToDp(3)},
-  
   text: {fontSize: widthToDp(4), textAlign: 'center'},
 });

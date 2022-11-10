@@ -3,7 +3,16 @@ import React, {useState, useMemo} from 'react';
 import {widthToDp} from '../Responsive';
 import DropDownPicker from 'react-native-dropdown-picker';
 
-const DetailView = ({bold,heading, details, dropdown, input, dropDown, setDropDown}) => {
+const DetailView = ({
+  bold,
+  heading,
+  details,
+  caseStatus,
+  dropdown,
+  input,
+  dropDown,
+  setDropDown,
+}) => {
   const [value, setValue] = useState('');
   const items = useMemo(() => {
     return [
@@ -22,6 +31,23 @@ const DetailView = ({bold,heading, details, dropdown, input, dropDown, setDropDo
     ];
   }, []);
 
+  const getStatus = statusId => {
+    if (statusId === 0) {
+      return 'New';
+    } else if (statusId === 1) {
+      return 'InProgress';
+    } else if (statusId === 2) {
+      return 'Completed';
+    } else if (statusId === 3) {
+      return 'Deleted';
+    } else if (statusId === 4) {
+      return 'RejectedByBuilder';
+    } else if (statusId === 5) {
+      return 'ToBeMonitored';
+    } else {
+    }
+  };
+
   return (
     <View style={styles.itemView}>
       <View style={styles.headingContainer}>
@@ -29,10 +55,15 @@ const DetailView = ({bold,heading, details, dropdown, input, dropDown, setDropDo
       </View>
       <View style={styles.detailContainer}>
         {details && (
-          <Text style={[styles.detailsText,{fontStyle:details == 'Null'?'italic':'normal'}]}>
+          <Text
+            style={[
+              styles.detailsText,
+              {fontStyle: details == 'Null' ? 'italic' : 'normal'},
+            ]}>
             {details}
           </Text>
         )}
+          <Text style={styles.detailsText}>{getStatus(caseStatus)}</Text>
         {dropdown && (
           <DropDownPicker
             open={dropDown}

@@ -10,6 +10,7 @@ import InformationBoard from '../Screens/InformationBoard';
 import AmenityBookingDetail from '../Screens/AmenityBookingDetail';
 import {AuthContext} from '../components/AuthContext/AuthProvider';
 import Loader from '../components/Loader/Loader';
+import StaffMembers from '../Screens/StaffMembers';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +36,10 @@ const index = () => {
             <Stack.Screen
               name="InformationBoard"
               component={InformationBoard}
+            />
+            <Stack.Screen
+              name="StaffMembers"
+              component={StaffMembers}
             />
           </>
         ) : (

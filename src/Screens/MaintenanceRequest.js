@@ -30,6 +30,7 @@ const MaintenanceRequest = () => {
     const response = await getRequest(url);
 
     if (response.status == 200) {
+      console.log(response.data)
       setData(response.data);
     }
   };

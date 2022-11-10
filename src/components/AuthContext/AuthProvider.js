@@ -1,6 +1,6 @@
 import {Platform, Alert} from 'react-native';
 import React, {createContext, useState, useMemo, useEffect} from 'react';
-import {Contractor_Role, API_URL} from '@env';
+import {Resident_Role, API_URL} from '@env';
 import {postRequest} from '../API_Requests/Api_Request';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {requestUserPermission} from '../Push_Notifications/PushNotification'
@@ -22,7 +22,7 @@ const AuthProvider = ({children}) => {
     const data = {
       email: input.username,
       password: input.password,
-      role: Contractor_Role,
+      role: Resident_Role,
       deviceToken: deviceToken,
       deviceType: Platform.OS,
     };
@@ -30,14 +30,15 @@ const AuthProvider = ({children}) => {
     const response = await postRequest(url, data);
 
     if (response.status == 200) {
+      // console.log(response.data)
       setUserData(response.data);
       setToken(response.token);
       await AsyncStorage.setItem('userToken', response.token);
       setLoading(false);
     } else if (response.status == 400) {
       Alert.alert(
-        'Wrong Password',
-        'If you forgot your password, please contact the owner.',
+        'Wrong Credentials!',
+        response.data.message
       );
       setLoading(false);
     } else if (response.status == 500) {
@@ -47,7 +48,7 @@ const AuthProvider = ({children}) => {
       );
       setLoading(false);
     } else {
-      console.log(response);
+      // console.log(response);
       setLoading(false);
       Alert.alert(
         'Error',
@@ -61,22 +62,22 @@ const AuthProvider = ({children}) => {
     await AsyncStorage.clear();
   };
 
-  const isLoggedIn = async () => {
-    setLoading(true);
-    try {
-      let userToken = await AsyncStorage.getItem('userToken');
-      setToken(userToken);
-      setLoading(false);
-    } catch (e) {
-      // console.log(e)
-      setLoading(false);
-      setToken(null);
-    }
-  };
+  // const isLoggedIn = async () => {
+  //   setLoading(true);
+  //   try {
+  //     let userToken = await AsyncStorage.getItem('userToken');
+  //     setToken(userToken);
+  //     setLoading(false);
+  //   } catch (e) {
+  //     // console.log(e)
+  //     setLoading(false);
+  //     setToken(null);
+  //   }
+  // };
 
-  useEffect(() => {
-    isLoggedIn();
-  }, []);
+  // useEffect(() => {
+  //   isLoggedIn();
+  // }, []);
 
   // useEffect(() => {
   //   console.log(userData);

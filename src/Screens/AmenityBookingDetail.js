@@ -4,54 +4,37 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  View
+  View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Header from '../components/Header/header';
 import {widthToDp, heightToDp} from '../components/Responsive';
 import DetailView from '../components/DetailView/DetailView';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import ImageModal from 'react-native-image-modal';
-import Maintenance from '../../assets/images/Maintenance.svg'
+import Maintenance from '../../assets/images/Maintenance.svg';
 
+const AmenityBookingDetail = ({route}) => {
+  const { data } = route.params;
+  
+  // console.log(data)
+  const defected_images = JSON.parse(data.defected_images);
 
-const defectedImages = [
-  {url: require('../../assets/images/defect1.jpg')},
-  {
-    url: require('../../assets/images/defect2.jpeg'),
-  },
-  {
-    url: require('../../assets/images/defect1.jpg'),
-  },
-  {
-    url: require('../../assets/images/defect2.jpeg'),
-  },
-];
+  const navigation = useNavigation();
 
-const AmenityBookingDetail = ({ route }) => {
-    
-    const { data } = route.params
-    const defected_images = JSON.parse(data.defected_images);
+  //   const [dropDown, setDropDown] = useState(false);
 
-    const navigation = useNavigation()
-
-//   const [dropDown, setDropDown] = useState(false);
-
-//   const handleDropDown = () => {
-//     setDropDown(false);
-//   };
-  const onSubmit = () => {
-    Alert.alert(
-      '',
-      'Thank you, Your reminder has been sent to the owner.',
-      [
-        {
-          text: 'OK',
-          onPress: () => navigation.navigate('Amenities'),
-        },
-      ],
-    );
-  };
+  //   const handleDropDown = () => {
+  //     setDropDown(false);
+  //   };
+  // const onSubmit = () => {
+  //   Alert.alert('', 'Thank you, Your reminder has been sent to the owner.', [
+  //     {
+  //       text: 'OK',
+  //       onPress: () => navigation.navigate('Amenities'),
+  //     },
+  //   ]);
+  // };
   // useEffect(() => {
   //   console.log(defected_images[0].name)
   // },[])
@@ -59,74 +42,71 @@ const AmenityBookingDetail = ({ route }) => {
   return (
     <SafeAreaView style={styles.root}>
       <Header text="Booking Details" />
-      <View
-        style={{
-          backgroundColor: '#3238a8',
-          marginHorizontal: '4%',
-          paddingVertical: '2%',
-          marginTop: '2%',
-          elevation: 5,
-          shadowColor: 'black',
-        }}>
-        <Text
-          style={{color: 'white', textAlign: 'center', fontSize: widthToDp(4)}}>
-          Case Number {data.case_number}
-        </Text>
+      <View style={styles.caseNoView}>
+        <Text style={styles.caseTxt}>Case Number {data.case_number}</Text>
       </View>
       <ScrollView style={styles.mainView} showsVerticalScrollIndicator={false}>
         <DetailView bold heading="Case Type" details={data.title} />
         <DetailView heading="Priority" details={data.priority} />
         <DetailView heading="Subject" details={data.subject_title} />
         <DetailView heading="Description" details={data.description} />
-        <DetailView
+        {/* <DetailView
           heading="Notes"
           details={data.notes ? data.notes : 'Null'}
-        />
+        /> */}
         <DetailView heading="Added Date" details={data.added_date} />
         <DetailView
           heading="Due Date"
           details={data.due_date ? data.due_date : 'Null'}
         />
-        <DetailView heading="Status" details={data.case_status} />
+        <DetailView heading="Status" caseStatus={data.case_status} />
         <View style={styles.defectedImageView}>
-          {defected_images.length > 0 && <View style={{ flex: 1 }}>
-            <View style={styles.defectedImageTextView}>
-              <Maintenance
-                width={widthToDp(4.5)}
-                height={heightToDp(4.5)}
-                fill="#3238a8"
-              />
-              <Text style={styles.text}>Defect's Images</Text>
-            </View>
-            <View style={styles.imagesView}>
-              <ImageModal
-                resizeMode="contain"
-                imageBackgroundColor="black"
-                style={{ width: widthToDp(78.5), height: heightToDp(40) }}
-                isTranslucent={true}
-                source={{ uri: 'http://54.79.105.63/xpert-fms/public/cases/' + defected_images[0].name }}
-              />
-              <View style={styles.imageView}>
-                {defected_images.length > 0 &&
-                  defected_images.map((item, index) => {
-                    if (index > 0) {
-                      return (
-                        <ImageModal
-                          resizeMode='contain'
-                          key={index}
-                          imageBackgroundColor="black"
-                          style={{
-                            width: widthToDp(20),
-                            height: heightToDp(20),
-                          }}
-                          source={{ uri: 'http://54.79.105.63/xpert-fms/public/cases/' + defected_images[index].name }}
-                        />
-                      );
-                    }
-                  })}
+          {defected_images.length > 0 && (
+            <View style={{flex: 1}}>
+              <View style={styles.defectedImageTextView}>
+                <Maintenance
+                  width={widthToDp(4.5)}
+                  height={heightToDp(4.5)}
+                  fill="#3238a8"
+                />
+                <Text style={styles.text}>Defect's Images</Text>
+              </View>
+              <View style={styles.imagesView}>
+                <ImageModal
+                  resizeMode="contain"
+                  imageBackgroundColor="black"
+                  style={{width: widthToDp(78.5), height: heightToDp(40)}}
+                  isTranslucent={true}
+                  source={{
+                    uri:'http://54.79.105.63/xpert-fms/public/cases/' + defected_images[0].name
+                  }}
+                />
+                <View style={styles.imageView}>
+                  {defected_images.length > 0 &&
+                    defected_images.map((item, index) => {
+                      if (index > 0) {
+                        return (
+                          <ImageModal
+                            resizeMode="contain"
+                            key={index}
+                            imageBackgroundColor="black"
+                            style={{
+                              width: widthToDp(20),
+                              height: heightToDp(20),
+                            }}
+                            source={{
+                              uri:
+                                'http://54.79.105.63/xpert-fms/public/cases/' +
+                                defected_images[index].name,
+                            }}
+                          />
+                        );
+                      }
+                    })}
+                </View>
               </View>
             </View>
-          </View>}
+          )}
         </View>
       </ScrollView>
       {/* {data.case_status === 'Completed' ? null :
@@ -150,6 +130,15 @@ const styles = StyleSheet.create({
     margin: widthToDp(4),
     borderRadius: widthToDp(2),
   },
+  caseNoView: {
+    backgroundColor: '#3238a8',
+    marginHorizontal: '4%',
+    paddingVertical: '2%',
+    marginTop: '2%',
+    elevation: 5,
+    shadowColor: 'black',
+  },
+  caseTxt: {color: 'white', textAlign: 'center', fontSize: widthToDp(4)},
   heading: {
     color: '#3238a8',
     fontSize: widthToDp(5),
@@ -198,4 +187,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
