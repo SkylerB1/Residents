@@ -78,7 +78,7 @@ const AmenityBookingDetail = ({route}) => {
                   style={{width: widthToDp(78.5), height: heightToDp(40)}}
                   isTranslucent={true}
                   source={{
-                    uri:'http://54.79.105.63/xpert-fms/public/cases/' + defected_images[0].name
+                    uri:'https://myboss.appwrk.com/public/cases/' + defected_images[0].name
                   }}
                 />
                 <View style={styles.imageView}>

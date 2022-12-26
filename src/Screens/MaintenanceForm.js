@@ -29,11 +29,7 @@ import {
   postRequest,
   getRequest,
 } from '../components/API_Requests/Api_Request';
-import {
-  postFile,
-  postRequest,
-  getRequest,
-} from '../components/API_Requests/Api_Request';
+
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {ScrollView as GestureHandlerScrollView} from 'react-native-gesture-handler';
 import Dropdown from '../components/Dropdown/Dropdown';
@@ -152,7 +148,7 @@ const MaintenanceForm = ({route, navigation}) => {
           );
         } else {
           setLoading(false);
-          console.log(FormResponse.data);
+          // console.log(FormResponse.data);
           Alert.alert(
             'Error',
             'Some Error occured while submitting the form. Please try after some time.',

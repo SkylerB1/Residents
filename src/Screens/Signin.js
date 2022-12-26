@@ -21,7 +21,7 @@ const SignIn = () => {
         <View style={styles.root}>
           <Text style={styles.text}>Resident's Login</Text>
           <KeyboardAvoidingView
-            behavior={Platform.OS ==='android' ? "position" : ''}
+            // behavior={Platform.OS ==='android' ? "position" : ''}
             keyboardVerticalOffset={widthToDp(20)}>
             <View>
               <CustomInput
@@ -42,16 +42,7 @@ const SignIn = () => {
                 control={control}
                 rules={{
                   required: 'Password is required',
-                  // minLength: {
-                  //   value: 8,
-                  //   message: 'Password should be minimum 8 characters',
-                  // },
-                  // pattern: {
-                  //   value:
-                  //     /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
-                  //   message:
-                  //     'Password should contain  a special character, digit and an uppercase alphabet',
-                  // },
+                 
                 }}
                 name="password"
                 placeholder="Password"

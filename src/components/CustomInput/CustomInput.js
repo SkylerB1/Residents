@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     borderColor: '#e8e8e8',
     borderWidth: 1,
     borderRadius: 5,
-    height: Platform.OS==='android'?0: '20%',
+    height: '20%',
     paddingHorizontal: '2%',
     marginVertical: heightToDp(4),
     marginHorizontal: widthToDp(10),

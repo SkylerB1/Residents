@@ -9,7 +9,7 @@ const getRequest = async url => {
 };
 
 const postRequest = async (url, data) => {
-  console.log({data: data});
+  // console.log({data: data});
   try {
     const response = await axios.post(url, data);
 
@@ -20,7 +20,7 @@ const postRequest = async (url, data) => {
 };
 
 const postFile = async (url, data) => {
-  console.log({ data: data});
+  // console.log({ data: data});
   try {
     const response = await fetch(url, {
       method: 'POST',
